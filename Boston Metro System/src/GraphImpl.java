@@ -38,9 +38,7 @@ public class GraphImpl implements Graph {
         }
 
         public void addNode(String nodeName, int nodeID) {
-                if (getNodeIndex(nodeName) >= 0) {
-                        System.out.println("Graph: ERROR: Node name " + nodeName + " already exists");
-                } else if (getNodeIndex(nodeID) >= 0) {
+                if (getNodeIndex(nodeID) >= 0) {
                         System.out.println("Graph: ERROR: Node ID " + nodeID + " already exists");
                 } else {
                         nodes.add(new NodeImpl(nodeName, nodeID));
@@ -133,7 +131,7 @@ public class GraphImpl implements Graph {
                         System.out.println("Graph: ERROR: Origin Node ID " + fromNodeID + " was not found!");
                 } else if (toNode == null) {
                         System.out.println("Graph: ERROR: Destination Node ID " + toNodeID + " was not found!");
-                } else if (getEdgeIndex(fromNodeID, toNodeID) >= 0) {
+                } else if (getEdgeIndex(fromNodeID, toNodeID, lineColour) >= 0) {
                         System.out.println("Graph: ERROR: Edge from node ID " + fromNodeID + " to node ID " + toNodeID + " already exists!");
                 } else {
                         Edge newEdge = new EdgeImpl(fromNode, toNode, lineColour, edgeWeight);
@@ -147,21 +145,29 @@ public class GraphImpl implements Graph {
         }
 
         public int getEdgeIndex(int fromNodeID, int toNodeID){
+                return getEdgeIndex(fromNodeID, toNodeID, null);
+        }
+
+        public int getEdgeIndex(String fromNodeName, String toNodeName){
+                return getEdgeIndex(fromNodeName, toNodeName, null);
+        }
+
+        public int getEdgeIndex(int fromNodeID, int toNodeID, String lineColour){
                 Edge edge;
                 for (int i=0; i<edges.size(); i++){
                         edge = edges.get(i);
-                        if (edge.getFromNode().getNodeID() == fromNodeID && edge.getToNode().getNodeID() == toNodeID) {
+                        if (edge.getFromNode().getNodeID() == fromNodeID && edge.getToNode().getNodeID() == toNodeID && (lineColour == null || edge.getLineColour().equalsIgnoreCase(lineColour))) {
                                 return i;
                         }
                 }
                 return -1;
         }
 
-        public int getEdgeIndex(String fromNodeName, String toNodeName){
+        public int getEdgeIndex(String fromNodeName, String toNodeName, String lineColour){
                 Edge edge;
                 for (int i=0; i<edges.size(); i++){
                         edge = edges.get(i);
-                        if (edge.getFromNode().getNodeName().equalsIgnoreCase(fromNodeName) && edge.getToNode().getNodeName().equalsIgnoreCase(toNodeName)) {
+                        if (edge.getFromNode().getNodeName().equalsIgnoreCase(fromNodeName) && edge.getToNode().getNodeName().equalsIgnoreCase(toNodeName) && (lineColour == null || edge.getLineColour().equalsIgnoreCase(lineColour))) {
                                 return i;
                         }
                 }

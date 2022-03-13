@@ -6,8 +6,6 @@ import java.util.LinkedList;
 
 public class MetroMapParser {
 
-    String ccpath = "C:\\Users\\Nas\\IdeaProjects\\untitled4\\src\\bostonmetro.txt";
-
     LinkedList<String[]> nodesList = new LinkedList<>();
     LinkedList<String[]> edgesList = new LinkedList<>();
 
@@ -34,7 +32,12 @@ public class MetroMapParser {
                     nodesList.add(Arrays.copyOfRange(lineSplit, 0, 2));
 
                     for (int i = 2; i < lineSplit.length; i += 3) {
-                        edgesList.add(Arrays.copyOfRange(lineSplit, i, i + 3));
+                        String[] edgeArray1 = Arrays.copyOfRange(lineSplit, i, i + 3);
+                        String[] edgeArray2 = Arrays.copyOfRange(lineSplit, i, i + 3);
+                        edgeArray1[2] = lineSplit[0];
+                        edgeArray2[1] = lineSplit[0];
+                        edgesList.add(edgeArray1);
+                        edgesList.add(edgeArray2);
                     }
                 }
             }
@@ -49,14 +52,14 @@ public class MetroMapParser {
     private void fillNodesInGraph(Graph graph){
         System.out.println("MetroMapParser: Filling nodes in graph");
         for (String[] node: nodesList){
-            graph.addNode(node[1], Integer.parseInt(node[0]));
+            graph.addNode(node[1].trim(), Integer.parseInt(node[0]));
         }
     }
 
     private void fillEdgesInGraph(Graph graph){
         System.out.println("MetroMapParser: Filling edges in graph");
         for (String[] edge: edgesList){
-            String colour = edge[0];
+            String colour = edge[0].trim();
             int node1 = Integer.parseInt(edge[1]);
             int node2 = Integer.parseInt(edge[2]);
             if (node1 > 0 && node2 > 0)

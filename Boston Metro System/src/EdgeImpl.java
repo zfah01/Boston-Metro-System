@@ -36,7 +36,7 @@ public class EdgeImpl implements Edge {
 
     //LineID
     public void setLineColour(String colour) {
-        lineColour = colour.toLowerCase(Locale.ROOT);
+        lineColour = colour.toLowerCase(Locale.ROOT).trim();
     }
 
     public String getLineColour() {

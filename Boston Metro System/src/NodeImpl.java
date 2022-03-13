@@ -11,7 +11,7 @@ public class NodeImpl implements Node  {
     }
 
     public void setNodeName(String nodeName){
-        name = nodeName.toLowerCase(Locale.ROOT);
+        name = nodeName.trim();
     }
 
     public String getNodeName(){
