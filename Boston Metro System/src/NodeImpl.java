@@ -1,15 +1,17 @@
+import java.util.Locale;
+
 public class NodeImpl implements Node  {
 
     private String name;
-    private int nodeId;
+    private int nodeID;
 
-    public NodeImpl(String name, int nodeId){
-        this.name = name;
-        this.nodeId = nodeId;
+    public NodeImpl(String name, int nodeID){
+        setNodeName(name);
+        setNodeID(nodeID);
     }
 
     public void setNodeName(String nodeName){
-        name = nodeName;
+        name = nodeName.toLowerCase(Locale.ROOT);
     }
 
     public String getNodeName(){
@@ -17,11 +19,11 @@ public class NodeImpl implements Node  {
     }
 
     public void setNodeID(int id){
-        nodeId = id;
+        nodeID = id;
     }
 
     public int getNodeID(){
-        return nodeId;
+        return nodeID;
     }
 
 }

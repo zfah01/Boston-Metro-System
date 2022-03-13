@@ -1,2 +1,3 @@
-public class Graph {
+interface Graph {
+
 }
