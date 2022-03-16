@@ -1,8 +1,5 @@
 
 interface Edge {
-    //edgeID
-    public void setEdgeID(int id);
-    public int getEdgeID();
 
     //formNode
     public void setFromNode(Node node);
@@ -13,8 +10,8 @@ interface Edge {
     public Node getToNode();
 
     //LineID
-    public void setLineID(int id);
-    public int getLineID();
+    public void setLineColour(String colour);
+    public String getLineColour();
 
     //edgeWeight
     public void setEdgeWeight(int weight);

@@ -1,30 +1,20 @@
-
+import java.util.Locale;
 
 public class EdgeImpl implements Edge {
 
-    private int edgeID;
     private Node fromNode;
     private Node toNode;
-    private int LineID;
+    private String lineColour;
     private int edgeWeight;
 
 
-    public EdgeImpl(int edgeID, Node fromNode, Node toNode, int LineID, int edgeWeight) {
-        this.edgeID = edgeID;
-        this.fromNode = fromNode;
-        this.toNode = toNode;
-        this.LineID = LineID;
-        this.edgeWeight = edgeWeight;
+    public EdgeImpl(Node fromNode, Node toNode, String lineColour, int edgeWeight) {
+        setFromNode(fromNode);
+        setToNode(toNode);
+        setLineColour(lineColour);
+        setEdgeWeight(edgeWeight);
     }
 
-    //edgeID
-    public void setEdgeID(int id) {
-        edgeID = id;
-    }
-
-    public int getEdgeID() {
-        return edgeID;
-    }
 
     //formNode
     public void setFromNode(Node node) {
@@ -37,7 +27,7 @@ public class EdgeImpl implements Edge {
 
     //toNode
     public void setToNode(Node node) {
-        fromNode = node;
+        toNode = node;
     }
 
     public Node getToNode() {
@@ -45,12 +35,12 @@ public class EdgeImpl implements Edge {
     }
 
     //LineID
-    public void setLineID(int id) {
-        LineID = id;
+    public void setLineColour(String colour) {
+        lineColour = colour.toLowerCase(Locale.ROOT).trim();
     }
 
-    public int getLineID() {
-        return LineID;
+    public String getLineColour() {
+        return lineColour;
     }
 
     //edgeWeight
