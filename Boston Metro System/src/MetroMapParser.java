@@ -1,3 +1,23 @@
+/**
+ * MetroMapParser
+ * This class populates a Graph object with nodes and edges
+ * listed in a map text file. The file format is custom as
+ * shown below:
+ * nodeNumber nodeName  edgeColour1 edgeFromNodeNum1 edgeToNodeNum1 edgeColour2 edgeFromNodeNum2 edgeToNodeNum2 ...
+ *
+ * For each edge entry, 2 edges are created: one for the segment
+ * that connects the node with the one before it, and another that
+ * connects it with the one after it.
+ *
+ * The entry method is populateGraphFromFile which accepts
+ * a graph object and the path to the map file. It returns
+ * nothing.
+ *
+ * @author Nasser Alkhaldy
+ * @since 12/03/2022
+ */
+
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

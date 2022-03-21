@@ -55,4 +55,6 @@ interface Graph {
     public boolean isEdge(String fromNodeName, String toNodeName);
 
     public int getEdgeCount();
+
+    public List<Edge> getEdges();
 }

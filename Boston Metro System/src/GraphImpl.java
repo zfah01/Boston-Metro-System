@@ -207,4 +207,8 @@ public class GraphImpl implements Graph {
                 return edges.size();
         }
 
+        public List<Edge> getEdges() {
+                return edges;
+        }
+
 }
