@@ -1,18 +1,15 @@
-/**
- * MetroSystem
- * This class is the entry point for the graph-based metro system.
- * It creates the graph object and calls MetroMapParser to populate
- * it. It also has an instance of MetroRouteFinder which can be
- * fetched using its getter method.
- *
- * This class provides some counts about the metro system such as
- * station count and line count.
- *
- * This class has a static main method which is called when the system
- * is used without a GUI.
- *
- * @author Nasser Alkhaldy
- * @since 21/03/2022
+/*
+  MetroSystem
+  This class is the entry point for the graph-based metro system.
+  It creates the graph object and calls MetroMapParser to populate
+  it. It also has an instance of MetroRouteFinder which can be
+  fetched using its getter method.
+
+  This class provides some counts about the metro system such as
+  station count and line count.
+
+  This class has a static main method which is called when the system
+  is used without a GUI.
  */
 
 
