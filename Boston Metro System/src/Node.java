@@ -1,7 +1,8 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
+interface Node{
+    void setNodeName(String nodeName);
+    String getNodeName();
 
-public class Node {
-	
-	private int id;
+    void setNodeID(int id);
+    int getNodeID();
+}
