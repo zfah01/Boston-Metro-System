@@ -1,13 +1,7 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-/**
- * The Node class represents a station
- * in this tutorial and will as such have
- * a string representing the station's name.
- * As well as an ArrayList of nodes that will store
- * any instantiated nodes children.
- */
+
 public class Node {
 	
 	private int id;
