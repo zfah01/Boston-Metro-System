@@ -1,4 +1,3 @@
-
 interface Node{
     void setNodeName(String nodeName);
     String getNodeName();
