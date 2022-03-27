@@ -1,0 +1,5 @@
+ 1 Station1	    Green 0 2
+ 2 Station2		Green 1 3
+ 3 Station3 	Red 0 4 Yellow 0 5
+ 4 Station4		Red 0 3
+ 5 Station5	    Yellow 0 3
