@@ -18,9 +18,6 @@ interface Graph {
 
     public void removeNode(int nodeID);
 
-    public int getNodeIndex(String nodeName);
-
-    public int getNodeIndex(int nodeID);
 
     public Node getNode(String nodeName);
 
@@ -37,14 +34,6 @@ interface Graph {
     public void addEdge(String lineColour, int fromNodeID, int toNodeID, int edgeWeight);
 
     public void addEdge(String lineColour, int fromNodeID, int toNodeID);
-
-    public int getEdgeIndex(int fromNodeID, int toNodeID);
-
-    public int getEdgeIndex(String fromNodeName, String toNodeName);
-
-    public int getEdgeIndex(int fromNodeID, int toNodeID, String lineColour);
-
-    public int getEdgeIndex(String fromNodeName, String toNodeName, String lineColour);
 
     public void removeEdge(String fromNodeName, String toNodeName);
 

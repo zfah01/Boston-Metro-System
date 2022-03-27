@@ -133,7 +133,7 @@ public class GraphImpl implements Graph {
          * @param nodeName: string value of node's name
          * @return index integer value of node instance in graph node list. returns -1 if not found
          */
-        public int getNodeIndex(String nodeName){
+        private int getNodeIndex(String nodeName){
                 Node node;
                 for (int i=0; i<nodes.size(); i++){
                         node = nodes.get(i);
@@ -150,7 +150,7 @@ public class GraphImpl implements Graph {
          * @param nodeID: integer value of node's ID
          * @return index integer value of node instance in graph node list. returns -1 if not found
          */
-        public int getNodeIndex(int nodeID){
+        private int getNodeIndex(int nodeID){
                 Node node;
                 for (int i=0; i<nodes.size(); i++){
                         node = nodes.get(i);
@@ -262,7 +262,7 @@ public class GraphImpl implements Graph {
          * @param toNodeID: integer value of ID of second node
          * @return integer value of edge index in node edge list
          */
-        public int getEdgeIndex(int fromNodeID, int toNodeID){
+        private int getEdgeIndex(int fromNodeID, int toNodeID){
                 return getEdgeIndex(fromNodeID, toNodeID, null);
         }
 
@@ -273,23 +273,30 @@ public class GraphImpl implements Graph {
          * @param toNodeName: string value of name of second node
          * @return integer value of edge index in node edge list
          */
-        public int getEdgeIndex(String fromNodeName, String toNodeName){
+        private int getEdgeIndex(String fromNodeName, String toNodeName){
                 return getEdgeIndex(fromNodeName, toNodeName, null);
         }
 
         /**
          * Method to get index of edge in graph edge list given the IDs of the nodes
-         * the edge maps to, and colour of line
+         * the edge maps to, and colour of line. Edges are non-directional
          * @param fromNodeID: integer value of ID of first node
          * @param toNodeID: integer value of ID of second node
          * @param lineColour: string value of colour of line
          * @return integer value of edge index in node edge list
          */
-        public int getEdgeIndex(int fromNodeID, int toNodeID, String lineColour){
+        private int getEdgeIndex(int fromNodeID, int toNodeID, String lineColour){
                 Edge edge;
                 for (int i=0; i<edges.size(); i++){
                         edge = edges.get(i);
-                        if (edge.getFromNode().getNodeID() == fromNodeID && edge.getToNode().getNodeID() == toNodeID && (lineColour == null || edge.getLineColour().equalsIgnoreCase(lineColour))) {
+                        if (edge.getFromNode().getNodeID() == fromNodeID
+                                && edge.getToNode().getNodeID() == toNodeID
+                                && (lineColour == null || edge.getLineColour().equalsIgnoreCase(lineColour))) {
+                                return i;
+                        }
+                        if (edge.getFromNode().getNodeID() == toNodeID
+                                && edge.getToNode().getNodeID() == fromNodeID
+                                && (lineColour == null || edge.getLineColour().equalsIgnoreCase(lineColour))) {
                                 return i;
                         }
                 }
@@ -298,17 +305,24 @@ public class GraphImpl implements Graph {
 
         /**
          * Method to get index of edge in graph edge list given the names of the nodes
-         * the edge maps to, and colour of line
+         * the edge maps to, and colour of line. Edges are non-directional
          * @param fromNodeName: string value of name of first node
          * @param toNodeName: string value of name of second node
          * @param lineColour: string value of colour of line
          * @return integer value of edge index in node edge list
          */
-        public int getEdgeIndex(String fromNodeName, String toNodeName, String lineColour){
+        private int getEdgeIndex(String fromNodeName, String toNodeName, String lineColour){
                 Edge edge;
                 for (int i=0; i<edges.size(); i++){
                         edge = edges.get(i);
-                        if (edge.getFromNode().getNodeName().equalsIgnoreCase(fromNodeName) && edge.getToNode().getNodeName().equalsIgnoreCase(toNodeName) && (lineColour == null || edge.getLineColour().equalsIgnoreCase(lineColour))) {
+                        if (edge.getFromNode().getNodeName().equalsIgnoreCase(fromNodeName)
+                                && edge.getToNode().getNodeName().equalsIgnoreCase(toNodeName)
+                                && (lineColour == null || edge.getLineColour().equalsIgnoreCase(lineColour))) {
+                                return i;
+                        }
+                        if (edge.getFromNode().getNodeName().equalsIgnoreCase(toNodeName)
+                                && edge.getToNode().getNodeName().equalsIgnoreCase(fromNodeName)
+                                && (lineColour == null || edge.getLineColour().equalsIgnoreCase(lineColour))) {
                                 return i;
                         }
                 }
