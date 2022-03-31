@@ -14,16 +14,26 @@
 
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MetroSystem {
 
     private Graph graph = new GraphImpl();
-    private final MetroRouteFinder routeFinder = new MetroRouteFinder();
+    private final MetroRouteFinder routeFinder = new MetroRouteFinder(graph);
+
 
     public static void main(String[] args) {
         MetroSystem metro = new MetroSystem();
         metro.loadFromFile();
+
+        List<Node> route = metro.routeFinder.breadthFirstSearch(1, 1109);
+        if (route != null) {
+            for (Node n: metro.routeFinder.breadthFirstSearch(1, 1109)){
+                System.out.println("Go to station: " + n.getNodeName());
+            }}
+        else
+            System.out.println("No route found");
 
         System.out.println("Done");
     }
@@ -61,5 +71,9 @@ public class MetroSystem {
 
     public MetroRouteFinder getRouteFinder(){
         return routeFinder;
+    }
+
+    public List<Node> getRoute(int node1ID, int node2ID){
+        return routeFinder.breadthFirstSearch(node1ID, node2ID);
     }
 }
