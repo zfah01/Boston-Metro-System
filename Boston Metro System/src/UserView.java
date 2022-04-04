@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class UserView {
 
@@ -11,7 +13,6 @@ public static void panel() {
     jframe.add(jpanel,BorderLayout.PAGE_START);
     jframe.setTitle("MetroSystem");
     jframe.setVisible(true);
-
     jframe.setSize(500,500);
 
 
@@ -21,25 +22,39 @@ public static void panel() {
     JButton buttonTwo = new JButton("Remove Station");
     JButton buttonThree = new JButton("Add Station");
     JButton buttonFour = new JButton("Clear");
-    JLabel label = new JLabel("Route:");
     JLabel labelTwo = new JLabel("Enter From Station:");
     JLabel labelThree = new JLabel("Enter To Station:");
-
+    JTextArea Route = new JTextArea("");
     JFormattedTextField textArea = new JFormattedTextField();
-    JFormattedTextField textAreaTwo = new JFormattedTextField("here");
-    JFormattedTextField textAreaThree = new JFormattedTextField("here");
+    JFormattedTextField textAreaTwo = new JFormattedTextField();
+    JFormattedTextField textAreaThree = new JFormattedTextField();
+    JFormattedTextField textAreaFour = new JFormattedTextField();
 
+    button.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+
+        String Nodes = textArea.getText();
+        Route.append(Nodes);
+
+        }
+    });
 
     jpanel.add(labelTwo);
     jpanel.add(textArea);
     jpanel.add(labelThree);
     jpanel.add(textAreaTwo);
     jpanel.add(button);
-    jpanel.add(label);
-    jpanel.add(textAreaThree);
+    jpanel.add(Route);
+
 
     jpanel.add(buttonTwo);
+    jpanel.add(textAreaThree);
+
     jpanel.add(buttonThree);
+    jpanel.add(textAreaFour);
+
     jpanel.add(buttonFour);
 }
 
