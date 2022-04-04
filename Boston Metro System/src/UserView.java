@@ -22,7 +22,7 @@ public static void panel() {
     JButton buttonThree = new JButton("Add Station");
     JButton buttonFour = new JButton("Clear");
     JLabel label = new JLabel("Route:");
-    JLabel labelTwo = new JLabel("Enter From StationN:");
+    JLabel labelTwo = new JLabel("Enter From Station:");
     JLabel labelThree = new JLabel("Enter To Station:");
 
     JFormattedTextField textArea = new JFormattedTextField();
