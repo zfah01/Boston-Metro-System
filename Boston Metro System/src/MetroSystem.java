@@ -76,4 +76,8 @@ public class MetroSystem {
     public List<Node> getRoute(int node1ID, int node2ID){
         return routeFinder.breadthFirstSearch(node1ID, node2ID);
     }
+
+    public List<Node> getAllStations(){
+        return graph.getAllNodes();
+    }
 }

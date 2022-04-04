@@ -2,65 +2,161 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class UserView {
 
-public static void panel() {
+    private MetroSystem metroSystem;
 
-    JFrame jframe = new JFrame();
-    JPanel jpanel = new JPanel();
+    private JComboBox fromStation;
+    private JComboBox toStation;
+    private DefaultListModel routeListModel;
 
-    jframe.add(jpanel,BorderLayout.PAGE_START);
-    jframe.setTitle("MetroSystem");
-    jframe.setVisible(true);
-    jframe.setSize(500,500);
+    public void buildPanel() {
+
+        JFrame jframe = new JFrame();
+        jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        jframe.setTitle("MetroSystem");
+
+        jframe.setSize(500,500);
+        jframe.setResizable(false);
+        Container contentPane = jframe.getContentPane();
+        SpringLayout springLayout = new SpringLayout();
+        jframe.setLayout(springLayout);
+
+        JButton showRouteButton = new JButton("Show Route");
+        JButton buttonTwo = new JButton("Remove Station");
+        JButton buttonThree = new JButton("Add Station");
+        JButton clearButton = new JButton("Clear");
+        JLabel routeLabel = new JLabel("Route:");
+        JLabel labelfrom = new JLabel("From station:");
+        JLabel labelto = new JLabel("To station:");
+        fromStation = new JComboBox();
+        toStation = new JComboBox();
+
+        //showRouteButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        routeListModel = new DefaultListModel();
+        JList routeList = new JList(routeListModel);
+
+        JScrollPane sp = new JScrollPane(routeList);
+        sp.setViewportView(routeList);
+        routeList.setLayoutOrientation(JList.VERTICAL);
+        sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        contentPane.add(sp);
+
+        sp.setPreferredSize(new Dimension(350, 200));
+        routeList.setVisibleRowCount(10);
+        routeList.setFixedCellWidth(200);
+        routeList.setFixedCellHeight(12);
+
+        contentPane.add(labelfrom);
+        contentPane.add(fromStation);
+        contentPane.add(labelto);
+        contentPane.add(toStation);
+        contentPane.add(showRouteButton);
+        contentPane.add(routeLabel);
+        //contentPane.add(routeList);
+        contentPane.add(clearButton);
 
 
-    jpanel.setBorder(BorderFactory.createEmptyBorder(20, 30,20,30));
-    jpanel.setLayout(new GridLayout(0, 1));
-    JButton button = new JButton("Show Route");
-    JButton buttonTwo = new JButton("Remove Station");
-    JButton buttonThree = new JButton("Add Station");
-    JButton buttonFour = new JButton("Clear");
-    JLabel labelTwo = new JLabel("Enter From Station:");
-    JLabel labelThree = new JLabel("Enter To Station:");
-    JTextArea Route = new JTextArea("");
-    JFormattedTextField textArea = new JFormattedTextField();
-    JFormattedTextField textAreaTwo = new JFormattedTextField();
-    JFormattedTextField textAreaThree = new JFormattedTextField();
-    JFormattedTextField textAreaFour = new JFormattedTextField();
-
-    button.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        springLayout.putConstraint(SpringLayout.WEST, labelfrom, 5, SpringLayout.WEST, contentPane);
+        springLayout.putConstraint(SpringLayout.NORTH, labelfrom, 8, SpringLayout.NORTH, contentPane);
+        springLayout.putConstraint(SpringLayout.WEST, fromStation, 5, SpringLayout.EAST, labelfrom);
+        springLayout.putConstraint(SpringLayout.NORTH, fromStation, 5, SpringLayout.NORTH, contentPane);
 
 
-        String Nodes = textArea.getText();
-        Route.append(Nodes);
+        springLayout.putConstraint(SpringLayout.WEST, labelto, 5, SpringLayout.WEST, contentPane);
+        springLayout.putConstraint(SpringLayout.NORTH, labelto, 15, SpringLayout.SOUTH, labelfrom);
+        springLayout.putConstraint(SpringLayout.WEST, toStation, 20, SpringLayout.EAST, labelto);
+        springLayout.putConstraint(SpringLayout.NORTH, toStation, 5, SpringLayout.SOUTH, fromStation);
 
+        springLayout.putConstraint(SpringLayout.WEST, showRouteButton, 200, SpringLayout.WEST, contentPane);
+        springLayout.putConstraint(SpringLayout.NORTH, showRouteButton, 10, SpringLayout.SOUTH, toStation);
+
+        springLayout.putConstraint(SpringLayout.WEST, routeLabel, 5, SpringLayout.WEST, contentPane);
+        springLayout.putConstraint(SpringLayout.NORTH, routeLabel, 20, SpringLayout.SOUTH, showRouteButton);
+
+        springLayout.putConstraint(SpringLayout.WEST, sp, 5, SpringLayout.WEST, contentPane);
+        springLayout.putConstraint(SpringLayout.NORTH, sp, 10, SpringLayout.SOUTH, routeLabel);
+
+        springLayout.putConstraint(SpringLayout.WEST, clearButton, 5, SpringLayout.WEST, contentPane);
+        springLayout.putConstraint(SpringLayout.NORTH, clearButton, 10, SpringLayout.SOUTH, sp);
+
+        springLayout.putConstraint(SpringLayout.EAST, contentPane, 360, SpringLayout.WEST, contentPane);
+        springLayout.putConstraint(SpringLayout.SOUTH, contentPane, 500, SpringLayout.NORTH, contentPane);
+
+        showRouteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                getRouteAndShowResult();
+            }
+        });
+
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                routeListModel.clear();
+                fromStation.setSelectedIndex(0);
+                toStation.setSelectedIndex(1);
+            }
+        });
+
+        populateComboBox();
+        jframe.pack();
+        jframe.setVisible(true);
+    }
+
+    private void getRouteAndShowResult(){
+        routeListModel.clear();
+        Node fromNode = (Node) fromStation.getSelectedItem();
+        Node toNode = (Node) toStation.getSelectedItem();
+        if (fromNode.getNodeID() == toNode.getNodeID()){
+            routeListModel.addElement("Origin is same as destination");
+            return;
         }
-    });
+        List<Node> route = metroSystem.getRoute(fromNode.getNodeID(), toNode.getNodeID());
+        if (route == null){
+            routeListModel.addElement("No route found");
+            return;
+        }
+        routeListModel.addElement(new String(route.size()-1 + " stops from "+ fromNode.getNodeName() + " to " + toNode.getNodeName()));
+        for (int i=0; i < route.size(); i++){
+            Node n = route.get(i);
+            if (i == 0)
+                routeListModel.addElement("Start at: " + n.getNodeName());
+            else if (i == route.size()-1)
+                routeListModel.addElement("Arrive at: " + n.getNodeName());
+            else
+                routeListModel.addElement("Go to: " + n.getNodeName());
+            }
 
-    jpanel.add(labelTwo);
-    jpanel.add(textArea);
-    jpanel.add(labelThree);
-    jpanel.add(textAreaTwo);
-    jpanel.add(button);
-    jpanel.add(Route);
+
+    }
+
+    private void populateComboBox(){
+        List<Node> allStations = metroSystem.getAllStations();
+        for (Node node: allStations){
+            fromStation.addItem(node);
+            toStation.addItem(node);
+        }
+        toStation.setSelectedIndex(1);
+    }
+
+    public void setUpMetroSystem(){
+        metroSystem = new MetroSystem();
+        metroSystem.loadFromFile();
+
+    }
+
+    public static void main(String[] args) {
+        UserView view = new UserView();
+        view.setUpMetroSystem();
+        view.buildPanel();
 
 
-    jpanel.add(buttonTwo);
-    jpanel.add(textAreaThree);
-
-    jpanel.add(buttonThree);
-    jpanel.add(textAreaFour);
-
-    jpanel.add(buttonFour);
-}
-
- public static void main(String[] args) {
-    panel();
-}
+    }
 
 
 
