@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,14 +27,15 @@ public class UserView {
         jframe.setLayout(springLayout);
 
         JButton showRouteButton = new JButton("Show Route");
-        JButton buttonTwo = new JButton("Remove Station");
-        JButton buttonThree = new JButton("Add Station");
+        //JButton buttonTwo = new JButton("Remove Station");
+        //JButton buttonThree = new JButton("Add Station");
         JButton clearButton = new JButton("Clear");
         JLabel routeLabel = new JLabel("Route:");
         JLabel labelfrom = new JLabel("From station:");
         JLabel labelto = new JLabel("To station:");
         fromStation = new JComboBox();
         toStation = new JComboBox();
+        JLabel map = new JLabel(new ImageIcon("Boston Metro System/src/map.jpg"));
 
         //showRouteButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -59,6 +61,7 @@ public class UserView {
         contentPane.add(routeLabel);
         //contentPane.add(routeList);
         contentPane.add(clearButton);
+        contentPane.add(map);
 
 
         springLayout.putConstraint(SpringLayout.WEST, labelfrom, 5, SpringLayout.WEST, contentPane);
@@ -84,7 +87,12 @@ public class UserView {
         springLayout.putConstraint(SpringLayout.WEST, clearButton, 5, SpringLayout.WEST, contentPane);
         springLayout.putConstraint(SpringLayout.NORTH, clearButton, 10, SpringLayout.SOUTH, sp);
 
-        springLayout.putConstraint(SpringLayout.EAST, contentPane, 360, SpringLayout.WEST, contentPane);
+        springLayout.putConstraint(SpringLayout.EAST, map, -10, SpringLayout.EAST, contentPane);
+        springLayout.putConstraint(SpringLayout.SOUTH, map, 5, SpringLayout.SOUTH, contentPane);
+        springLayout.putConstraint(SpringLayout.NORTH, map, 5, SpringLayout.NORTH, contentPane);
+        springLayout.putConstraint(SpringLayout.WEST, map, 5, SpringLayout.EAST, sp);
+
+        springLayout.putConstraint(SpringLayout.EAST, contentPane, 800, SpringLayout.WEST, contentPane);
         springLayout.putConstraint(SpringLayout.SOUTH, contentPane, 500, SpringLayout.NORTH, contentPane);
 
         showRouteButton.addActionListener(new ActionListener() {
@@ -150,7 +158,7 @@ public class UserView {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         UserView view = new UserView();
         view.setUpMetroSystem();
         view.buildPanel();
